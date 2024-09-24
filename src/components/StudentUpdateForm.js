@@ -1,14 +1,15 @@
-// src/components/StudentUpdateForm.js
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { updateStudent } from '../store/store';
 
-function StudentUpdateForm({ student, updateStudent, setEditingStudent }) {
+function StudentUpdateForm({ student, setEditingStudent }) {
   const [name, setName] = useState(student.name);
   const [age, setAge] = useState(student.age);
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const updatedStudent = { ...student, name, age };
-    updateStudent(updatedStudent);
+    dispatch(updateStudent({ ...student, name, age }));
     setEditingStudent(null);
   };
 

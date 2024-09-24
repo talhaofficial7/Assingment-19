@@ -1,12 +1,10 @@
-// src/components/StudentForm.js
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addStudent } from '../store/store';
 
-function StudentForm({ addStudent }) {
-  const [inputs, setInputs] = useState({
-    name: '',
-    email: '',
-    rollNo: ''
-  });
+function StudentForm() {
+  const [inputs, setInputs] = useState({ name: '', email: '', rollNo: '' });
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -15,7 +13,7 @@ function StudentForm({ addStudent }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addStudent(inputs);
+    dispatch(addStudent(inputs));
     setInputs({ name: '', email: '', rollNo: '' });
   };
 

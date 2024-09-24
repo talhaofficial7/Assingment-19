@@ -1,7 +1,11 @@
-// src/components/StudentList.js
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteStudent, updateStudent } from '../store/store';
 
-function StudentList({ students, deleteStudent, updateStudent }) {
+function StudentList() {
+  const students = useSelector(state => state.students);
+  const dispatch = useDispatch();
+
   return (
     <table className="table">
       <thead>
@@ -14,15 +18,15 @@ function StudentList({ students, deleteStudent, updateStudent }) {
         </tr>
       </thead>
       <tbody>
-        {students.map((student, index) => (
-          <tr key={index}>
+        {students.map(student => (
+          <tr key={student.id}>
             <td>{student.id}</td>
             <td>{student.name}</td>
             <td>{student.email}</td>
             <td>{student.rollNo}</td>
             <td>
-              <button onClick={() => deleteStudent(student.id)} className="btn btn-danger me-2">Delete</button>
-              <button onClick={() => updateStudent({ ...student, name: "Updated" })} className="btn btn-warning">Update</button>
+              <button onClick={() => dispatch(deleteStudent(student.id))} className="btn btn-danger me-2">Delete</button>
+              <button onClick={() => dispatch(updateStudent({ ...student, name: "Updated" }))} className="btn btn-warning">Update</button>
             </td>
           </tr>
         ))}
